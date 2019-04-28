@@ -65,23 +65,31 @@ public class RangeTest {
 	public void range() {
 		String[] args = { "(", "5", "3", "]" };
 		Range range = new Range(args);
+		assertEquals(Range.BORDER_MIN_OUT, range.getBorderMin());
 		assertEquals(3, range.getMin());
 		assertEquals(5, range.getMax());
+		assertEquals(Range.BORDER_MAX_IN, range.getBorderMax());
 
 		String[] args2 = { "[", "0", "6", "]" };
 		range = new Range(args2);
+		assertEquals(Range.BORDER_MIN_IN, range.getBorderMin());
 		assertEquals(0, range.getMin());
 		assertEquals(6, range.getMax());
+		assertEquals(Range.BORDER_MAX_IN, range.getBorderMax());
 
-		String[] args3 = { "[", "4", "0", "]" };
+		String[] args3 = { "[", "4", "0", ")" };
 		range = new Range(args3);
+		assertEquals(Range.BORDER_MIN_IN, range.getBorderMin());
 		assertEquals(0, range.getMin());
 		assertEquals(4, range.getMax());
+		assertEquals(Range.BORDER_MAX_OUT, range.getBorderMax());
 
 		String[] args4 = { "[", "3", "1", "-5", "]" };
 		range = new Range(args4);
+		assertEquals(Range.BORDER_MIN_IN, range.getBorderMin());
 		assertEquals(-5, range.getMin());
 		assertEquals(3, range.getMax());
+		assertEquals(Range.BORDER_MAX_IN, range.getBorderMax());
 	}
 
 }

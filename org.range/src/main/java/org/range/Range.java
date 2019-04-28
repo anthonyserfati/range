@@ -6,20 +6,30 @@ import java.util.List;
 import javax.management.RuntimeErrorException;
 
 public class Range {
-	public static final List<String> BORDERS_MIN = Arrays.asList("[", "(");
-	public static final List<String> BORDERS_MAX = Arrays.asList("]", ")");
+	public static final String BORDER_MIN_IN = "[";
+	public static final String BORDER_MIN_OUT = "(";
+	public static final String BORDER_MAX_IN = "]";
+	public static final String BORDER_MAX_OUT = ")";
 
-	private String[] args;
+	public static final List<String> BORDERS_MIN = Arrays.asList(BORDER_MIN_IN, BORDER_MIN_OUT);
+	public static final List<String> BORDERS_MAX = Arrays.asList(BORDER_MAX_IN, BORDER_MAX_OUT);
+
 	private int min, max;
-	private boolean minExclude, maxExcluded;
+	private String borderMin, borderMax;
+
 
 	Range(String[] rangeExpr) {
 		validate(rangeExpr);
-		this.args = rangeExpr;
-		this.min = Integer.valueOf(this.args[1]);
-		this.max = Integer.valueOf(this.args[1]);
-		for (int i = 1; i <= this.args.length - 2; i++) {
-			int val = Integer.valueOf(this.args[i]);
+
+		// Borders
+		this.borderMin = rangeExpr[0];
+		this.borderMax = rangeExpr[rangeExpr.length - 1];
+
+		// Min / Max
+		this.min = Integer.valueOf(rangeExpr[1]);
+		this.max = Integer.valueOf(rangeExpr[1]);
+		for (int i = 1; i <= rangeExpr.length - 2; i++) {
+			int val = Integer.valueOf(rangeExpr[i]);
 			if (val < min) {
 				min = val;
 			}
@@ -50,7 +60,7 @@ public class Range {
 
 	@Override
 	public String toString() {
-		return args.toString();
+		return this.borderMin + this.min + "," + this.max + this.borderMax;
 	}
 
 	public int getMin() {
@@ -59,6 +69,19 @@ public class Range {
 
 	public int getMax() {
 		return max;
+	}
+
+	public String getBorderMin() {
+		return borderMin;
+	}
+
+	public String getBorderMax() {
+		return borderMax;
+	}
+
+	public boolean contains(Range range) {
+
+		return true;
 	}
 
 }
