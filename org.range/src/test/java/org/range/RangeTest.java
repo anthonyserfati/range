@@ -1,6 +1,8 @@
 package org.range;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -90,6 +92,20 @@ public class RangeTest {
 		assertEquals(-5, range.getMin());
 		assertEquals(3, range.getMax());
 		assertEquals(Range.BORDER_MAX_IN, range.getBorderMax());
+	}
+
+	@Test
+	public void rangeContainValues() {
+		// [2,6) contains {2,4}
+		String[] args = { "[", "2", "6", ")" };
+		Range range = new Range(args);
+		int[] values = { 2, 4 };
+		boolean contains = range.contains(values);
+		assertTrue(contains);
+		// [2,6) doesn’t contain {-1,1,6,10}
+		int[] values2 = { -1, 1, 6, 10 };
+		contains = range.contains(values2);
+		assertFalse(contains);
 	}
 
 }
