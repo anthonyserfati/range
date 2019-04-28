@@ -116,4 +116,14 @@ public class Range {
 		return points;
 	}
 
+	public boolean containsRange(Range range) {
+		if (!this.containsValue(range.getMin())) {
+			return false;
+		}
+		if (!this.containsValue(range.getMax())) {
+			return false;
+		}
+		return true;
+	}
+
 }

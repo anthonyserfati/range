@@ -122,4 +122,39 @@ public class RangeTest {
 		assertEquals(Integer.valueOf(5), points.get(3));
 	}
 
+	@Test
+	public void containsRange() {
+		// [2,5) doesn’t contain [7,10)
+		String[] args = { "[", "2", "5", ")" };
+		Range range = new Range(args);
+		String[] argsBis = { "[", "7", "10", ")" };
+		Range rangeBis = new Range(argsBis);
+		assertFalse(range.containsRange(rangeBis));
+		// [2,5) doesn’t contain [3,10)
+		String[] argsBis2 = { "[", "3", "10", ")" };
+		Range rangeBis2 = new Range(argsBis2);
+		assertFalse(range.containsRange(rangeBis2));
+
+		// [2,10) contains [3,5]
+		String[] args2 = { "[", "2", "10", ")" };
+		Range range2 = new Range(args2);
+		String[] argsBis3 = { "[", "3", "5", "]" };
+		Range rangeBis3 = new Range(argsBis3);
+		assertTrue(range2.containsRange(rangeBis3));
+
+		// [3,5) doesn’t contain [2,10)
+		String[] args3 = { "[", "3", "5", ")" };
+		Range range3 = new Range(args3);
+		String[] argsBis4 = { "[", "2", "10", ")" };
+		Range rangeBis4 = new Range(argsBis4);
+		assertFalse(range3.containsRange(rangeBis4));
+
+		// [3,5] contains [3,5)
+		String[] args4 = { "[", "3", "5", "]" };
+		Range range4 = new Range(args4);
+		String[] argsBis5 = { "[", "3", "5", ")" };
+		Range rangeBis5 = new Range(argsBis5);
+		assertTrue(range4.containsRange(rangeBis5));
+	}
+
 }
