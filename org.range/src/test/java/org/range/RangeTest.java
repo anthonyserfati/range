@@ -157,4 +157,39 @@ public class RangeTest {
 		assertTrue(range4.containsRange(rangeBis5));
 	}
 
+	@Test
+	public void endPoints() {
+		// [2,6) endPoints = {2,5}
+		String[] args1 = { "[", "2", "6", ")" };
+		Range range1 = new Range(args1);
+		List<Integer> endPoints = range1.endPoints();
+		assertEquals(2, endPoints.size());
+		assertEquals(Integer.valueOf(2), endPoints.get(0));
+		assertEquals(Integer.valueOf(5), endPoints.get(1));
+
+		// [2,6] endPoints = {2,6}
+		String[] args2 = { "[", "2", "6", "]" };
+		Range range2 = new Range(args2);
+		endPoints = range2.endPoints();
+		assertEquals(2, endPoints.size());
+		assertEquals(Integer.valueOf(2), endPoints.get(0));
+		assertEquals(Integer.valueOf(6), endPoints.get(1));
+
+		// (2,6) endPoints = {3,5}
+		String[] args3 = { "(", "2", "6", ")" };
+		Range range3 = new Range(args3);
+		endPoints = range3.endPoints();
+		assertEquals(2, endPoints.size());
+		assertEquals(Integer.valueOf(3), endPoints.get(0));
+		assertEquals(Integer.valueOf(5), endPoints.get(1));
+
+		// (2,6] endPoints = {3,6}
+		String[] args4 = { "(", "2", "6", "]" };
+		Range range4 = new Range(args4);
+		endPoints = range4.endPoints();
+		assertEquals(2, endPoints.size());
+		assertEquals(Integer.valueOf(3), endPoints.get(0));
+		assertEquals(Integer.valueOf(6), endPoints.get(1));
+	}
+
 }

@@ -68,8 +68,16 @@ public class Range {
 		return min;
 	}
 
+	public int getMinBorderVal() {
+		return BORDER_MIN_IN.equals(this.getBorderMin()) ? this.min : this.min + 1;
+	}
+
 	public int getMax() {
 		return max;
+	}
+
+	public int getMaxBorderVal() {
+		return BORDER_MAX_IN.equals(this.getBorderMax()) ? this.max : this.max - 1;
 	}
 
 	public String getBorderMin() {
@@ -107,8 +115,8 @@ public class Range {
 	}
 
 	public List<Integer> allPoints() {
-		int minVal = BORDER_MIN_IN.equals(this.getBorderMin()) ? this.min : this.min + 1;
-		int maxMal = BORDER_MAX_IN.equals(this.getBorderMax()) ? this.max : this.max - 1;
+		int minVal = getMinBorderVal();
+		int maxMal = getMaxBorderVal();
 		List<Integer> points = new ArrayList<>();
 		for (int i = minVal; i <= maxMal; i++) {
 			points.add(i);
@@ -124,6 +132,13 @@ public class Range {
 			return false;
 		}
 		return true;
+	}
+
+	public List<Integer> endPoints() {
+		List<Integer> endPoints = new ArrayList<>();
+		endPoints.add(getMinBorderVal());
+		endPoints.add(getMaxBorderVal());
+		return endPoints;
 	}
 
 }
