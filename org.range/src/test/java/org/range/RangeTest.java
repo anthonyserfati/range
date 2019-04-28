@@ -20,7 +20,8 @@ public class RangeTest {
 	@Test
 	public void rangeEmpty() {
 		try {
-			new Range("");
+			String[] args = {};
+			new Range(args);
 		}
 		catch (Exception e) {
 			assertEquals("Range expression is not defined", e.getMessage());
@@ -30,7 +31,8 @@ public class RangeTest {
 	@Test
 	public void rangeBadBorderMin() {
 		try {
-			new Range("g5,3(");
+			String[] args = { "g", "5", "3", "(" };
+			new Range(args);
 		}
 		catch (Exception e) {
 			assertEquals("Range expression 1st element must be " + Range.BORDERS_MIN, e.getMessage());
@@ -40,10 +42,22 @@ public class RangeTest {
 	@Test
 	public void rangeBadBorderMax() {
 		try {
-			new Range("(5,3(");
+			String[] args = { "(", "5", "3", "(" };
+			new Range(args);
 		}
 		catch (Exception e) {
 			assertEquals("Range expression 1st element must be " + Range.BORDERS_MAX, e.getMessage());
+		}
+	}
+
+	@Test
+	public void rangeExpressionSize() {
+		try {
+			String[] args = { "(", "5", "3" };
+			new Range(args);
+		}
+		catch (Exception e) {
+			assertEquals("Range expression must be 4 characters length", e.getMessage());
 		}
 	}
 
