@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class RangeTest {
@@ -95,7 +97,7 @@ public class RangeTest {
 	}
 
 	@Test
-	public void rangeContainValues() {
+	public void containValues() {
 		// [2,6) contains {2,4}
 		String[] args = { "[", "2", "6", ")" };
 		Range range = new Range(args);
@@ -106,6 +108,18 @@ public class RangeTest {
 		int[] values2 = { -1, 1, 6, 10 };
 		contains = range.contains(values2);
 		assertFalse(contains);
+	}
+
+	@Test
+	public void allPoints() {
+		String[] args = { "[", "2", "6", ")" };
+		Range range = new Range(args);
+		List<Integer> points = range.allPoints();
+		assertEquals(4, points.size());
+		assertEquals(Integer.valueOf(2), points.get(0));
+		assertEquals(Integer.valueOf(3), points.get(1));
+		assertEquals(Integer.valueOf(4), points.get(2));
+		assertEquals(Integer.valueOf(5), points.get(3));
 	}
 
 }

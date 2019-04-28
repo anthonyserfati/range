@@ -1,5 +1,6 @@
 package org.range;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -97,6 +98,16 @@ public class Range {
 		}
 
 		return true;
+	}
+
+	public List<Integer> allPoints() {
+		int minVal = BORDER_MIN_IN.equals(this.getBorderMin()) ? this.min : this.min + 1;
+		int maxMal = BORDER_MAX_IN.equals(this.getBorderMax()) ? this.max : this.max - 1;
+		List<Integer> points = new ArrayList<>();
+		for (int i = minVal; i <= maxMal; i++) {
+			points.add(i);
+		}
+		return points;
 	}
 
 }
