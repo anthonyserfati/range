@@ -82,21 +82,27 @@ public class Range {
 
 	public boolean contains(int[] values) {
 		for (int value : values) {
-			if (this.getBorderMin().equals(BORDER_MIN_IN) && this.min > value) {
-				return false;
-			}
-			if (this.getBorderMin().equals(BORDER_MIN_OUT) && this.min >= value) {
-				return false;
-			}
-			if (this.getBorderMin().equals(BORDER_MAX_IN) && this.max < value) {
-				return false;
-			}
-
-			if (this.getBorderMin().equals(BORDER_MAX_OUT) && this.max <= value) {
+			if (!containsValue(value)) {
 				return false;
 			}
 		}
+		return true;
+	}
 
+	private boolean containsValue(int value) {
+		if (this.getBorderMin().equals(BORDER_MIN_IN) && this.min > value) {
+			return false;
+		}
+		if (this.getBorderMin().equals(BORDER_MIN_OUT) && this.min >= value) {
+			return false;
+		}
+		if (this.getBorderMax().equals(BORDER_MAX_IN) && this.max < value) {
+			return false;
+		}
+
+		if (this.getBorderMax().equals(BORDER_MAX_OUT) && this.max <= value) {
+			return false;
+		}
 		return true;
 	}
 
