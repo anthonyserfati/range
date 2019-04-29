@@ -6,6 +6,13 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+/**
+ * This is a simple Range class Range can be [a, b, c, .... ] : constructor will order params and determine min / max to set range borders Border can include
+ * ('[') / exclude ('(')min / max border value Left border is '[' or '(' Right border is ']' or ')'
+ * 
+ * @author asi
+ *
+ */
 public class Range {
 	public static final String BORDER_MIN_IN = "[";
 	public static final String BORDER_MIN_OUT = "(";
