@@ -212,4 +212,43 @@ public class Range {
 		return false;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((borderMax == null) ? 0 : borderMax.hashCode());
+		result = prime * result + ((borderMin == null) ? 0 : borderMin.hashCode());
+		result = prime * result + max;
+		result = prime * result + min;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Range other = (Range) obj;
+		if (borderMax == null) {
+			if (other.borderMax != null)
+				return false;
+		}
+		else if (!borderMax.equals(other.borderMax))
+			return false;
+		if (borderMin == null) {
+			if (other.borderMin != null)
+				return false;
+		}
+		else if (!borderMin.equals(other.borderMin))
+			return false;
+		if (max != other.max)
+			return false;
+		if (min != other.min)
+			return false;
+		return true;
+	}
+
 }

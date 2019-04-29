@@ -230,4 +230,35 @@ public class RangeTest {
 		assertTrue(range5.overlapsRange(rangeBis5));
 	}
 
+	@Test
+	public void equals() {
+		// [3,5) equals [3,5)
+		String[] args1 = { "[", "3", "5", ")" };
+		Range range1 = new Range(args1);
+		String[] argsBis1 = { "[", "3", "5", ")" };
+		Range rangeBis1 = new Range(argsBis1);
+		assertTrue(range1.equals(rangeBis1));
+
+		// [2,10) neq [3,5)
+		String[] args2 = { "[", "2", "10", ")" };
+		Range range2 = new Range(args2);
+		String[] argsBis2 = { "[", "3", "5", ")" };
+		Range rangeBis2 = new Range(argsBis2);
+		assertFalse(range2.equals(rangeBis2));
+
+		// [2,5) neq [3,10)
+		String[] args3 = { "[", "2", "5", ")" };
+		Range range3 = new Range(args3);
+		String[] argsBis3 = { "[", "3", "10", ")" };
+		Range rangeBis3 = new Range(argsBis3);
+		assertFalse(range3.equals(rangeBis3));
+
+		// [3,5) neq [2,10)
+		String[] args4 = { "[", "3", "5", ")" };
+		Range range4 = new Range(args4);
+		String[] argsBis4 = { "[", "2", "10", ")" };
+		Range rangeBis4 = new Range(argsBis4);
+		assertFalse(range4.equals(rangeBis4));
+	}
+
 }
