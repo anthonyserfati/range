@@ -64,26 +64,56 @@ public class Range {
 		return this.borderMin + this.min + "," + this.max + this.borderMax;
 	}
 
+	/**
+	 * Getter for min border value
+	 * 
+	 * @return
+	 */
 	public int getMin() {
 		return min;
 	}
 
+	/**
+	 * Returns min border value with in/ou border exclusion
+	 * 
+	 * @return
+	 */
 	public int getMinBorderVal() {
 		return BORDER_MIN_IN.equals(this.getBorderMin()) ? this.min : this.min + 1;
 	}
 
+	/**
+	 * Getter for max border value
+	 * 
+	 * @return
+	 */
 	public int getMax() {
 		return max;
 	}
 
+	/**
+	 * Returns max border value with in/ou border exclusion
+	 * 
+	 * @return
+	 */
 	public int getMaxBorderVal() {
 		return BORDER_MAX_IN.equals(this.getBorderMax()) ? this.max : this.max - 1;
 	}
 
+	/**
+	 * Getter for border min expression
+	 * 
+	 * @return
+	 */
 	public String getBorderMin() {
 		return borderMin;
 	}
 
+	/**
+	 * Getter for border max expression
+	 * 
+	 * @return
+	 */
 	public String getBorderMax() {
 		return borderMax;
 	}
@@ -97,6 +127,12 @@ public class Range {
 		return true;
 	}
 
+	/**
+	 * Return if range contains given value
+	 * 
+	 * @param value
+	 * @return
+	 */
 	private boolean containsValue(int value) {
 		if (this.getBorderMin().equals(BORDER_MIN_IN) && this.min > value) {
 			return false;
@@ -114,6 +150,11 @@ public class Range {
 		return true;
 	}
 
+	/**
+	 * All points of a range
+	 * 
+	 * @return
+	 */
 	public List<Integer> allPoints() {
 		int minVal = getMinBorderVal();
 		int maxMal = getMaxBorderVal();
@@ -124,6 +165,12 @@ public class Range {
 		return points;
 	}
 
+	/**
+	 * Returns if range contains give one
+	 * 
+	 * @param range
+	 * @return
+	 */
 	public boolean containsRange(Range range) {
 		if (!this.containsValue(range.getMin())) {
 			return false;
@@ -134,11 +181,40 @@ public class Range {
 		return true;
 	}
 
+	/**
+	 * Return range border end points values
+	 * 
+	 * @return
+	 */
 	public List<Integer> endPoints() {
 		List<Integer> endPoints = new ArrayList<>();
 		endPoints.add(getMinBorderVal());
 		endPoints.add(getMaxBorderVal());
 		return endPoints;
+	}
+
+	/**
+	 * Return if range overlaps given one (intersection)
+	 * 
+	 * @param range
+	 * @return
+	 */
+	public boolean overlapsRange(Range range) {
+		if (this.containsValue(range.getMin())) {
+			return true;
+		}
+		if (this.containsValue(range.getMax())) {
+			return true;
+		}
+
+		if (range.containsValue(this.min)) {
+			return true;
+		}
+		if (range.containsValue(this.max)) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

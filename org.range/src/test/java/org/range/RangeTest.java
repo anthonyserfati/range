@@ -192,4 +192,42 @@ public class RangeTest {
 		assertEquals(Integer.valueOf(6), endPoints.get(1));
 	}
 
+	@Test
+	public void overlaps() {
+		// [2,5) doesn’t overlap with [7,10)
+		String[] args1 = { "[", "2", "5", ")" };
+		Range range1 = new Range(args1);
+		String[] argsBis1 = { "[", "7", "10", ")" };
+		Range rangeBis1 = new Range(argsBis1);
+		assertFalse(range1.overlapsRange(rangeBis1));
+
+		// [2,10) overlaps with [3,5)
+		String[] args2 = { "[", "2", "10", ")" };
+		Range range2 = new Range(args2);
+		String[] argsBis2 = { "[", "3", "5", ")" };
+		Range rangeBis2 = new Range(argsBis2);
+		assertTrue(range2.overlapsRange(rangeBis2));
+
+		// [3,5) overlaps with [3,5)
+		String[] args3 = { "[", "3", "5", ")" };
+		Range range3 = new Range(args3);
+		String[] argsBis3 = { "[", "3", "5", ")" };
+		Range rangeBis3 = new Range(argsBis3);
+		assertTrue(range3.overlapsRange(rangeBis3));
+
+		// [2,5) overlaps with [3,10)
+		String[] args4 = { "[", "2", "5", ")" };
+		Range range4 = new Range(args4);
+		String[] argsBis4 = { "[", "3", "10", ")" };
+		Range rangeBis4 = new Range(argsBis4);
+		assertTrue(range4.overlapsRange(rangeBis4));
+
+		// [3,5) overlaps with [2,10)
+		String[] args5 = { "[", "3", "5", ")" };
+		Range range5 = new Range(args5);
+		String[] argsBis5 = { "[", "2", "10", ")" };
+		Range rangeBis5 = new Range(argsBis5);
+		assertTrue(range5.overlapsRange(rangeBis5));
+	}
+
 }
