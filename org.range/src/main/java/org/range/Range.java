@@ -23,12 +23,12 @@ public class Range {
 		validate(rangeExpr);
 
 		// Borders
-		this.borderMin = rangeExpr[0];
-		this.borderMax = rangeExpr[rangeExpr.length - 1];
+		borderMin = rangeExpr[0];
+		borderMax = rangeExpr[rangeExpr.length - 1];
 
 		// Min / Max
-		this.min = Integer.valueOf(rangeExpr[1]);
-		this.max = Integer.valueOf(rangeExpr[1]);
+		min = Integer.valueOf(rangeExpr[1]);
+		max = Integer.valueOf(rangeExpr[1]);
 		for (int i = 1; i <= rangeExpr.length - 2; i++) {
 			int val = Integer.valueOf(rangeExpr[i]);
 			if (val < min) {
@@ -61,7 +61,7 @@ public class Range {
 
 	@Override
 	public String toString() {
-		return this.borderMin + this.min + "," + this.max + this.borderMax;
+		return borderMin + min + "," + max + borderMax;
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class Range {
 	 * @return
 	 */
 	public int getMinBorderVal() {
-		return BORDER_MIN_IN.equals(this.getBorderMin()) ? this.min : this.min + 1;
+		return BORDER_MIN_IN.equals(getBorderMin()) ? min : min + 1;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class Range {
 	 * @return
 	 */
 	public int getMaxBorderVal() {
-		return BORDER_MAX_IN.equals(this.getBorderMax()) ? this.max : this.max - 1;
+		return BORDER_MAX_IN.equals(getBorderMax()) ? max : max - 1;
 	}
 
 	/**
@@ -134,17 +134,10 @@ public class Range {
 	 * @return
 	 */
 	private boolean containsValue(int value) {
-		if (this.getBorderMin().equals(BORDER_MIN_IN) && this.min > value) {
+		if(getMinBorderVal()>value) {
 			return false;
 		}
-		if (this.getBorderMin().equals(BORDER_MIN_OUT) && this.min >= value) {
-			return false;
-		}
-		if (this.getBorderMax().equals(BORDER_MAX_IN) && this.max < value) {
-			return false;
-		}
-
-		if (this.getBorderMax().equals(BORDER_MAX_OUT) && this.max <= value) {
+		if(getMaxBorderVal()<value) {
 			return false;
 		}
 		return true;
@@ -172,10 +165,10 @@ public class Range {
 	 * @return
 	 */
 	public boolean containsRange(Range range) {
-		if (!this.containsValue(range.getMin())) {
+		if (!containsValue(range.getMin())) {
 			return false;
 		}
-		if (!this.containsValue(range.getMax())) {
+		if (!containsValue(range.getMax())) {
 			return false;
 		}
 		return true;
@@ -200,17 +193,19 @@ public class Range {
 	 * @return
 	 */
 	public boolean overlapsRange(Range range) {
-		if (this.containsValue(range.getMin())) {
+		// Intersection with range
+		if (containsValue(range.getMin())) {
 			return true;
 		}
-		if (this.containsValue(range.getMax())) {
+		if (containsValue(range.getMax())) {
 			return true;
 		}
 
-		if (range.containsValue(this.min)) {
+		// Range intersection with this
+		if (range.containsValue(min)) {
 			return true;
 		}
-		if (range.containsValue(this.max)) {
+		if (range.containsValue(max)) {
 			return true;
 		}
 
