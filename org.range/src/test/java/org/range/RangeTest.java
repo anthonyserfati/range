@@ -10,59 +10,33 @@ import org.junit.Test;
 
 public class RangeTest {
 
-	@Test
-	public void rangeNull() {
-		try {
-			new Range(null);
-		}
-		catch (Exception e) {
-			assertEquals("Range expression is not defined", e.getMessage());
-		}
-
+	@Test(expected = RuntimeException.class)
+	public void rangeNull2() {
+		new Range(null);
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void rangeEmpty() {
-		try {
-			String[] args = {};
-			new Range(args);
-		}
-		catch (Exception e) {
-			assertEquals("Range expression is not defined", e.getMessage());
-		}
+		String[] args = {};
+		new Range(args);
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void rangeBadBorderMin() {
-		try {
-			String[] args = { "g", "5", "3", "(" };
-			new Range(args);
-		}
-		catch (Exception e) {
-			assertEquals("Range expression 1st element must be " + Range.BORDERS_MIN, e.getMessage());
-		}
+		String[] args = { "g", "5", "3", "(" };
+		new Range(args);
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void rangeBadBorderMax() {
-		try {
-			String[] args = { "(", "5", "3", "(" };
-			new Range(args);
-		}
-		catch (Exception e) {
-			assertEquals("Range expression 1st element must be " + Range.BORDERS_MAX, e.getMessage());
-		}
+		String[] args = { "(", "5", "3", "(" };
+		new Range(args);
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void rangebadLength() {
-		try {
-			String[] args = { "(", "5", "(" };
-			new Range(args);
-		}
-		catch (Exception e) {
-			assertEquals("Range expression length must be >=4", e.getMessage());
-		}
+		String[] args = { "(", "5", "(" };
+		new Range(args);
 	}
 
 	@Test
